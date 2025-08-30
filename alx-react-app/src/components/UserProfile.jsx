@@ -1,12 +1,9 @@
 const UserProfile = (props) => {
-    const age = props.age;
-    const name = props.name;
-    const bio = props.bio
     return (
         <>
-            <h2>{name}</h2>
-            <p>{age}</p>
-            <p>{bio}</p>
+            <h2>{props.name}</h2>
+            <p>{props.age}</p>
+            <p>{props.bio}</p>
         </>
     )
 };
