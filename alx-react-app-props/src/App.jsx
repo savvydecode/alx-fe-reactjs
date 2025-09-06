@@ -6,7 +6,7 @@ import Footer from "./components/Footer";
 import WelcomeMessage from "./components/WelcomeMessage";
 import UserProfile from "./components/UserProfile";
 import Counter from "./components/Counter";
-import { myContext } from "./components/UserContext";
+import { UserContext } from "./components/UserContext";
 import ProfilePage from "./components/ProfilePage";
 
 
@@ -17,9 +17,9 @@ function App() {
     <>
       <Header />
       <UserProfile name="Alice" age="25" bio="Loves hiking and photography" />
-      <myContext.Provider value={ userData }>
+      <UserContext.Provider value={ userData }>
         <ProfilePage/>
-      </myContext.Provider>
+      </UserContext.Provider>
       <MainContent />
       <WelcomeMessage />
       <Counter />
