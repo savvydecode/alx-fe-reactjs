@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
 import RecipeList from './components/RecipeList.jsx';
 import AddRecipeForm from './components/AddRecipeForm.jsx';
 import RecipeDetails from './components/RecipeDetails.jsx';
+import SearchBar from './components/SearchBar.jsx';
 
 function Home() {
   return (
@@ -14,6 +15,7 @@ function Home() {
     >
       <h1>Recipe Sharing App</h1>
       <AddRecipeForm />
+      <SearchBar />
       <RecipeList />
     </div>
   );
