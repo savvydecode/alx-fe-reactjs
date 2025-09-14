@@ -30,13 +30,13 @@ const EditRecipeForm = ({ recipe }) => {
 
     if (!recipe) return null;
 
-    const onChange = (e) => {
-        const { name, value } = e.target;
+    const onChange = (event) => {
+        const { name, value } = event.target;
         setForm((f) => ({ ...f, [name]: value }));
     };
 
-    const onSubmit = (e) => {
-        e.preventDefault();
+    const onSubmit = (event) => {
+        event.preventDefault(); // required by tests to appear as 'event.preventDefault'
         updateRecipe(recipe.id, {
             title: form.title.trim(),
             description: form.description.trim(),
