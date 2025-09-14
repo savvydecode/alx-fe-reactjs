@@ -12,3 +12,111 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
+/* Global defaults */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+:root {
+  --bg: #fafafa;
+  --text: #222;
+  --muted: #666;
+  --border: #e5e7eb;
+  --primary: #1976d2;
+  --primary-contrast: #fff;
+  --danger: #e53935;
+}
+
+html, body, #root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Links */
+a {
+  color: var(--primary);
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: underline;
+}
+
+/* Typography spacing */
+h1, h2, h3, h4 {
+  line-height: 1.2;
+  margin: 0.6em 0 0.4em;
+}
+p {
+  margin: 0.5em 0;
+  color: var(--text);
+}
+small, .muted {
+  color: var(--muted);
+}
+
+/* Lists */
+ul, ol {
+  padding-left: 1.2rem;
+}
+
+/* Forms */
+input, textarea, select, button {
+  font: inherit;
+}
+input, textarea, select {
+  width: 100%;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 8px 10px;
+  background: #fff;
+  color: var(--text);
+}
+input::placeholder,
+textarea::placeholder {
+  color: #999;
+}
+textarea {
+  resize: vertical;
+}
+
+button {
+  cursor: pointer;
+  border: 1px solid transparent;
+  border-radius: 6px;
+  padding: 8px 12px;
+  background: var(--primary);
+  color: var(--primary-contrast);
+  transition: background 0.15s ease-in-out, opacity 0.15s ease-in-out;
+}
+button:hover {
+  opacity: 0.95;
+}
+button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Utility */
+hr {
+  border: none;
+  border-top: 1px solid var(--border);
+  margin: 24px 0;
+}
+
+/* Accessibility */
+:focus-visible {
+  outline: 2px solid #94c6ff;
+  outline-offset: 2px;
+}
