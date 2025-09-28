@@ -4,44 +4,49 @@ import axios from "axios";
 const GITHUB_API_KEY = import.meta.env.VITE_APP_GITHUB_API_KEY;
 
 // 🔍 Function to fetch users using GitHub's Search API
-const fetchUserData = async ({ username, location, minRepos, page = 1 }) => {
-    // 🧠 Build the query string dynamically using filters
-    const filters = [];
+const fetchUserData = async (username, location, minRepos) => {
+    // 🧠 Build the query string dynamically based on provided filters
+    let query = '';
 
-    if (username) filters.push(username); // Match keyword (can be name, login, etc.)
-    if (location) filters.push(`location:${location}`); // Filter by location
-    if (minRepos) filters.push(`repos:>=${minRepos}`); // Filter by minimum repo count
+    // 🔤 Add username keyword if provided (can match name, login, etc.)
+    if (username) {
+        query += `${username}`;
+    }
 
-    const query = filters.join(' '); // Combine filters into a single query string
+    // 🌍 Add location filter if provided
+    if (location) {
+        query += ` location:${location}`;
+    }
 
-    // 🐛 Debugging: log the final query and page
-    console.log(`Query: ${query}, Page: ${page}`);
+    // 📦 Add minimum repository count filter if provided
+    if (minRepos) {
+        query += ` repos:>=${minRepos}`;
+    }
+
+    // 🐛 Debugging: log the final query string before sending request
+    console.log(`Query: ${query}`);
 
     try {
-        // 📡 Send GET request to GitHub Search API with pagination
-        const response = await axios.get(`https://api.github.com/search/users`, {
-            params: {
-                q: query,
-                page: page,
-                per_page: 10 // You can adjust this to show more or fewer users per page
-            },
+        // 📡 Send GET request to GitHub Search API with constructed query
+        const response = await axios.get(`https://api.github.com/search/users?q=${query}`, {
             headers: {
-                Authorization: `Bearer ${GITHUB_API_KEY}` // Use token for higher rate limits
+                Authorization: `Bearer ${GITHUB_API_KEY}` // Use token for authenticated requests
             }
         });
 
-        // ✅ Return list of users and total count
-        return {
-            users: response.data.items,
-            totalCount: response.data.total_count
-        };
+        // ✅ Check for successful response
+        if (response.status !== 200) {
+            throw new Error(`${response.status}`); // Throw error if response is not OK
+        }
+
+        // 🐛 Debugging: log full response data
+        console.log(response.data);
+
+        // 🧾 Return the first matched user or a fallback message
+        return response.data.items || 'Request failed with status code 404';
     } catch (error) {
         // ❌ Return error message for handling in the component
-        return {
-            users: [],
-            totalCount: 0,
-            error: error.message
-        };
+        return error.message;
     }
 };
 
