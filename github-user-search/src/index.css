@@ -1,15 +1,16 @@
+
+@import "tailwindcss";
+
 :root {
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
-
-  color-scheme: light dark;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  /* color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
-}
-*{
-  padding: 0;
-  margin: 0;
+  background-color: #242424; */
 }
 
 nav{
@@ -40,7 +41,13 @@ nav a:first-child:hover{
   border-bottom-color: transparent;
 }
 
-
+.body-container{
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+  justify-content: center;
+  padding: 10px;
+}
 .user-card{
   display: flex;
   justify-content: space-evenly;
@@ -55,4 +62,4 @@ nav a:first-child:hover{
 .user-card img{
   border-radius: 5px;
   margin-right: 10px;
-}
+} 

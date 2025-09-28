@@ -4,6 +4,8 @@ import Navbar from "../components/Navbar";
 export default function HomePage() {
     return (<>
         <Navbar />
-        <Search />
+        <div className="body-container">
+            <Search />
+        </div>
     </>)
 }
