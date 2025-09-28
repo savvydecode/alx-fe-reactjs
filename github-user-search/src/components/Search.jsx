@@ -1,32 +1,44 @@
 import { useEffect, useState } from 'react';
-import fetchGithubUser from '../services/github';
+import fetchGithubUser from '../services/githubService';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 
-export default function GitHubSearch() {
+export default function fetchUserData() {
     const [username, setUsername] = useState("")
     const [userData, setUserData] = useState(null);
     const [loading, setLoading] = useState(false);
+    const [error, setError] = useState(false);
+    const [errMessage, setErrMessage] = useState("");
 
-    const handleSearch = async () => {
-        setLoading(true)
+    const handleSearch = async (e) => {
+        e.preventDefault();
+        
         if (username.trim() !== "") {
-
+            setLoading(true)
+            setError(false)
+            setUserData(null)
             try {
                 const data = await fetchGithubUser(username);
                 setUserData(data);
                 setLoading(false)
+                if (data == "Request failed with status code 404"){
+                    throw new Error(`${data}`);
+                }
             } catch (error) {
-                setUserData(null)
-                console.log(error)
+                setUserData(null);
+                setError(true);
+                setErrMessage(`${error}`)
+                console.log(`${error}`)
+            } finally{
+                setLoading(false);
             }
         } else {
             alert('Enter a user Name');
         }
     }
 
-    useEffect(() => {
+   /*  useEffect(() => {
         console.log(userData)
-    }, [userData])
+    }, [userData]) */
 
     return (
         <div>
@@ -39,8 +51,14 @@ export default function GitHubSearch() {
             />
             <button onClick={handleSearch}>Search</button>
             <hr />
-            {loading && <p>Loading Data</p> }
-                {userData &&  <div className='user-card' style={{ marginTop: '1rem' }}>
+
+            {/**CONDITIONAL RENDERING */}
+            {loading && <p style={{textAlign: 'center'}}>Loading...</p> }
+            {error && <div>
+                <p>Looks like we cant find the user.</p>
+                <p>{errMessage}</p>
+            </div>}
+            {userData &&  <div className='user-card' style={{ marginTop: '1rem' }}>
                     <img src={userData.avatar_url} alt="Avatar" width={100} />
                     <div className="user-info-container">
                         <h2>{userData.name || userData.login}</h2>
