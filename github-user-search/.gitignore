@@ -26,3 +26,6 @@ dist-ssr
 *.env
 ./.env
 
+/src/services/rmService.js
+/src/components/rmSearch.jsx
+
