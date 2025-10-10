@@ -3,9 +3,10 @@ import { useState, useEffect } from "react"
 
 import data from '../data.json';
 
+
 //component to render and style each recipe card
 //the components below can be in a seperate file
-export function Card({ key, title, summary, image }) {
+export function Card({ key, text, summary, image }) {
     return (
 
         <div id={key} 
@@ -13,11 +14,11 @@ export function Card({ key, title, summary, image }) {
         ">
             <img
                 className="w-40 rounded-full hover:shadow-2xl"
-                src={image} alt={title} />
+                src={image} alt={text} />
             <div 
             className="flex flex-col"
             >
-                <h2>{title}</h2>
+                <h2>{text}</h2>
                 <p>{summary}</p>
             </div>
 
@@ -49,7 +50,7 @@ export default function Homepage() {
     return (
         <CardContainer>
             {recipes.map(recipe => (
-                <Card key={recipe.id} title={recipe.title} summary={recipe.summary} image={recipe.image}/>
+                <Card key={recipe.id} text={recipe.title} summary={recipe.summary} image={recipe.image}/>
                     
             ))}
         </CardContainer>
