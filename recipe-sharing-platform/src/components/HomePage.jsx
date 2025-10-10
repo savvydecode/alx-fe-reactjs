@@ -31,7 +31,7 @@ export function Card({ key, text, summary, image }) {
 export function CardContainer({ children }) {
     return (
         <div
-            className="flex flex-col justify-center items-center mx-auto sm:flex-row sm:gap-2 p-2    sm:justify-between
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 justify-center items-center mx-auto sm:flex-row sm:gap-2 p-2    sm:justify-between
             "
         >{children}</div>
     )
