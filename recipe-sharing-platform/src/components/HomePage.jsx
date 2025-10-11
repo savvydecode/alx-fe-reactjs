@@ -2,6 +2,7 @@
 import { useState, useEffect } from "react"
 import { useNavigate } from 'react-router-dom';
 import data from '../data.json';
+import { Link } from "react-router-dom";
 
 
 //component to render and style each recipe card
@@ -15,20 +16,22 @@ export function Card({ id, key, text, summary, image }) {
     }
     return (
 
-        <div id={key}
-            className="flex flex-row justify-center items-center  mx-auto my-2 border p-2 bg bg-gradient-to-r from-blue-900 via-blue-800 via-blue-700 to-blue-600 rounded-2xl max-w-sm sm:max-w-sm  sm:justify-center lg:max-w-lg gap-2  sm:gap-1
+        <Link to={`/recipe/${id}`}>
+            <div id={key}
+                className="flex flex-row justify-center items-center  mx-auto my-2 border p-2 bg bg-gradient-to-r from-blue-900 via-blue-800 via-blue-700 to-blue-600 rounded-2xl max-w-sm sm:max-w-sm  sm:justify-center lg:max-w-lg gap-2  sm:gap-1
         ">
-            <img onClick={getDetails}
-                className="w-40 rounded-full hover:shadow-2xl"
-                src={image} alt={text} />
-            <div
-                className="flex flex-col justify-center items-center"
-            >
-                <h2 className="font-bold text-lg">{text}</h2>
-                <p>{summary}</p>
-            </div>
+                <img onClick={getDetails}
+                    className="w-40 rounded-full hover:shadow-2xl"
+                    src={image} alt={text} />
+                <div
+                    className="flex flex-col justify-center items-center"
+                >
+                    <h2 className="font-bold text-lg">{text}</h2>
+                    <p>{summary}</p>
+                </div>
 
-        </div>
+            </div>
+        </Link>
 
     );
 }
@@ -65,7 +68,7 @@ export default function Homepage() {
                 }
                 const data = await res.json()
                 setRecipes(data)
-            } catch(error){
+            } catch (error) {
                 console.error(error)
             }
         }
