@@ -42,7 +42,9 @@ export function CardContainer({ children }) {
         <div
             className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 justify-center items-center mx-auto sm:flex-row sm:gap-2 p-2    sm:justify-between text-white
             "
-        >{children}</div>
+        >
+        {children}
+        </div>
     )
 }
 
@@ -75,12 +77,15 @@ export default function Homepage() {
         fetchData()
 
     })
-    return (
+    return (<>
+        <div>
+            <Link to={'/add-recipe'} className="text-blue-600 p-4 text-2xl font-bold hover:underline" >Add Recipe</Link>
+        </div>
         <CardContainer>
             {recipes.map(recipe => (
                 <Card key={recipe.id} id={recipe.id} text={recipe.title} summary={recipe.summary} image={recipe.image} />
 
             ))}
         </CardContainer>
-    );
+    </>);
 }
