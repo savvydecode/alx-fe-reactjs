@@ -72,7 +72,12 @@ export default function RecipeDetail() {
 
         {recipes ?
             <div
-                className=" flex flex-col justify-center rounded-4xl mt-6 shadow-2xl items-center my-4  mx-auto max-w-4/5  lg:max-w-3/5 bg-blue-50"
+                className={[
+                    "flex flex-col justify-center rounded-4xl mt-6 shadow-2xl items-center",
+                    "my-4  mx-auto max-w-4/5  lg:max-w-3/5 bg-blue-50"
+                ].join(" ")}
+                
+
             >
                 <h1 className="font-bold text-4xl mb-4 text-blue-800" >{title}</h1>
                 <div className="p-4 flex flex-col justify-center items-center g-2  bg-gradient-to-b from-blue-400 via-blue-400 to-blue-200 rounded-2xl sm:flex-row  max-w-full w-full">

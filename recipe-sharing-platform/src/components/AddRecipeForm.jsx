@@ -1,28 +1,4 @@
 
-/* import {Link} from 'react-router-dom'
-export default function AddRecipeForm() {
-
-    const handleSubmit = () => {
-
-    }
-
-
-    return (<div>
-
-        <Link to="/" className="text-blue-600 p-4 text-2xl font-bold hover:underline">
-            ← Back
-        </Link>
-        <div className='max-w-2xl mx-auto p-4 sm:p-6'>
-            <h1 className="text-2xl font-bold mb-4" >Add a New Recipe</h1>
-            <form action="" onSubmit={handleSubmit}>
-            <p>
-                <label htmlFor="title">Recipe Title</label>
-            </p>
-            </form>
-        </div>
-        </div>);
-}
- */
 
 import { useState } from "react";
 import { Link } from "react-router-dom";
@@ -94,15 +70,17 @@ export default function AddRecipeForm() {
 
         // Build the recipe object
         const newRecipe = {
-            id: crypto?.randomUUID?.() || String(Date.now()),
+            id: crypto?.randomUUID?.() ?? String(Date.now()),
             title: title.trim(),
             ingredients: linesFromText(ingredientsText),
             instructions: linesFromText(stepsText),
+            image: "https://avatar.iran.liara.run/public",
         };
 
         // For now, just log and show success.
         // You can replace this with a fetch POST to your backend, or update app state.
         console.log("Recipe submitted:", newRecipe);
+
 
         // Reset form
         setTitle("");
@@ -120,13 +98,13 @@ export default function AddRecipeForm() {
             </Link>
 
             {/* Container */}
-            <div className="max-w-2xl mx-auto p-4 sm:p-6">
+            <div className="max-w-2xl mx-auto p-4 sm:p-6 bg-blue-50 rounded-4xl border-blue-600 border-2 shadow-2xl my-2">
                 <h1 className="text-2xl font-bold mb-4">Add a New Recipe</h1>
 
                 <form onSubmit={handleSubmit} noValidate className="space-y-5">
                     {/* Title */}
                     <div>
-                        <label htmlFor="title" className="block text-sm font-medium text-gray-200">
+                        <label htmlFor="title" className="block text-sm font-medium text-gray-900">
                             Recipe Title
                         </label>
                         <input
@@ -148,7 +126,7 @@ export default function AddRecipeForm() {
                     {/* Ingredients */}
                     <div>
                         <div className="flex items-center justify-between">
-                            <label htmlFor="ingredients" className="block text-sm font-medium text-gray-200">
+                            <label htmlFor="ingredients" className="block text-sm font-medium text-gray-900">
                                 Ingredients
                             </label>
                             <span className="text-xs text-gray-400">One per line</span>
@@ -170,9 +148,9 @@ export default function AddRecipeForm() {
                     </div>
 
                     {/* Steps */}
-                    <div>
+                    <div >
                         <div className="flex items-center justify-between">
-                            <label htmlFor="steps" className="block text-sm font-medium text-gray-200">
+                            <label htmlFor="steps" className="block text-sm font-medium text-gray-900">
                                 Preparation Steps
                             </label>
                             <span className="text-xs text-gray-400">One per line</span>
