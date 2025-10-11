@@ -12,7 +12,9 @@ export default function Card({ key, title, summary, image }) {
             <div 
             className="flex flex-col"
             >
-                <h2>{title}</h2>
+                <h2 
+                className="">
+                {title}</h2>
                 <p>{summary}</p>
             </div>
 
