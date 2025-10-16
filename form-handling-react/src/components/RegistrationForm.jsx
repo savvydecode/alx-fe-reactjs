@@ -1,29 +1,23 @@
 import React, { useState } from "react";
 
 // Controlled Components version
+// - Uses separate state variables for each field
 // - Basic required-field validation
 // - Simulated registration via JSONPlaceholder
-// - Shows success/error messages
 export default function RegistrationForm() {
-    const [formData, setFormData] = useState({
-        username: "",
-        email: "",
-        password: "",
-    });
+    const [username, setUsername] = useState("");
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+
     const [errors, setErrors] = useState({});
     const [loading, setLoading] = useState(false);
     const [result, setResult] = useState(null); // { type: 'success' | 'error', message: string }
 
-    const handleChange = (e) => {
-        const { name, value } = e.target;
-        setFormData((prev) => ({ ...prev, [name]: value }));
-    };
-
     const validate = () => {
         const newErrors = {};
-        if (!formData.username.trim()) newErrors.username = "Username is required";
-        if (!formData.email.trim()) newErrors.email = "Email is required";
-        if (!formData.password.trim()) newErrors.password = "Password is required";
+        if (!username.trim()) newErrors.username = "Username is required";
+        if (!email.trim()) newErrors.email = "Email is required";
+        if (!password.trim()) newErrors.password = "Password is required";
         return newErrors;
     };
 
@@ -44,7 +38,7 @@ export default function RegistrationForm() {
             const res = await fetch("https://jsonplaceholder.typicode.com/users", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(formData),
+                body: JSON.stringify({ username, email, password }),
             });
 
             if (!res.ok) {
@@ -56,8 +50,11 @@ export default function RegistrationForm() {
                 type: "success",
                 message: `Registered successfully! Mock user id: ${data.id ?? "N/A"}`,
             });
-            // Optionally clear the form
-            setFormData({ username: "", email: "", password: "" });
+
+            // Clear the form
+            setUsername("");
+            setEmail("");
+            setPassword("");
         } catch (err) {
             setResult({
                 type: "error",
@@ -78,8 +75,8 @@ export default function RegistrationForm() {
                         id="username"
                         name="username"
                         type="text"
-                        value={formData.username}
-                        onChange={handleChange}
+                        value={username}
+                        onChange={(e) => setUsername(e.target.value)}
                         placeholder="Your username"
                         style={{ display: "block", width: "100%", padding: 8 }}
                     />
@@ -94,15 +91,17 @@ export default function RegistrationForm() {
                         id="email"
                         name="email"
                         type="email"
-                        value={formData.email}
-                        onChange={handleChange}
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
                         placeholder="you@example.com"
                         style={{ display: "block", width: "100%", padding: 8 }}
                     />
-                    {errors.email && (
-                        <div style={{ color: "crimson", fontSize: 12 }}>{errors.email}</div>
-                    )}
                 </div>
+                {errors.email && (
+                    <div style={{ color: "crimson", fontSize: 12, marginTop: -8, marginBottom: 12 }}>
+                        {errors.email}
+                    </div>
+                )}
 
                 <div style={{ marginBottom: 12 }}>
                     <label htmlFor="password">Password</label>
@@ -110,8 +109,8 @@ export default function RegistrationForm() {
                         id="password"
                         name="password"
                         type="password"
-                        value={formData.password}
-                        onChange={handleChange}
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
                         placeholder="********"
                         style={{ display: "block", width: "100%", padding: 8 }}
                     />
